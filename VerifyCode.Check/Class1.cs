@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace rv_core
+namespace VerifyCode.Check
 {
     public class Class1
     {
