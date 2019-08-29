@@ -4,10 +4,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:local="clr-namespace:Fancs.ControlWindows"
+        Background="#FFF"
         mc:Ignorable="d"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
-        Title="用户采集器" Height="390" Width="800">
+        Title="用户采集器" Height="500" Width="800">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="410" />
@@ -28,27 +29,11 @@
                  VerticalScrollBarVisibility="Visible" />
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
-                <RowDefinition Height="100" />
+                <RowDefinition Height="180" />
                 <RowDefinition Height="180" />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <GroupBox Header="当前账号" Visibility="Visible">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <DockPanel Margin="1" Grid.Row="0">
-                        <Label Width="80" HorizontalContentAlignment="Right">账号：</Label>
-                        <TextBox Text="{Binding Account}" IsEnabled="False" />
-                    </DockPanel>
-                    <DockPanel Margin="1" Grid.Row="1">
-                        <Label Width="80" HorizontalContentAlignment="Right">密码：</Label>
-                        <TextBox Text="{Binding Password}" IsEnabled="False" />
-                    </DockPanel>
-                </Grid>
-            </GroupBox>
-            <GroupBox Header="账号和密码" Grid.Row="1">
+            <GroupBox Header="关键词" Grid.Row="0">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="2*" />
@@ -57,28 +42,66 @@
                     <TextBox Margin="4" VerticalContentAlignment="Top"
                              TextWrapping="NoWrap" AcceptsReturn="True"
                              VerticalAlignment="Stretch"
-                             Text="{Binding Setting.MsgStr}"
+                             Text="{Binding Keywords}"
                              IsEnabled="{Binding IsStop}"
                              Height="Auto"
                              HorizontalAlignment="Stretch"
                              VerticalScrollBarVisibility="Visible" />
                     <DockPanel Grid.Row="1">
                         <Label Width="60" HorizontalContentAlignment="Right">已采条数:</Label>
-                        <TextBox Text="{Binding Setting.StartLine}"
+                        <TextBox Text="{Binding Count}"
                                  IsEnabled="False" />
                     </DockPanel>
                 </Grid>
             </GroupBox>
-            <GroupBox Header="启动" Grid.Row="2">
+            <GroupBox Header="采集" Grid.Row="1">
                 <Grid>
-                    <DockPanel VerticalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <Label Width="60" HorizontalContentAlignment="Right">设备ID:</Label>
+                        <TextBox Text="{Binding Udid}"/>
+                    </DockPanel>
+                    <DockPanel Grid.Row="1">
+                        <Label Width="60" HorizontalContentAlignment="Right">账号密码:</Label>
+                        <TextBox Text="{Binding AccountStr}" Width="220" />
+                        <Button Width="80" Content="登录" Click="Button_Click" Name="BtnLogin" />
+                    </DockPanel>
+                    <DockPanel VerticalAlignment="Center" Grid.Row="2">
                         <Button IsEnabled="{Binding IsStop}" Width="100" Margin="50,0,0,0"
                                 Click="Button_Click" Name="BtnStart">
                             开始采集
                         </Button>
-                        <Button IsEnabled="{Binding IsStarted}" Width="100" Click="Button_Click"
-                                Name="BtnStop">
+                        <Button IsEnabled="{Binding IsRunning}" Width="100" Click="Button_Click"
+                                Name="BtnStop"
+                                Margin="50,0,0,0">
                             暂停采集
+                        </Button>
+                    </DockPanel>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="导出数据" Grid.Row="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <DockPanel Grid.Row="0">
+                        <Label Width="60" HorizontalContentAlignment="Right">存储条数:</Label>
+                        <TextBox Text="{Binding Total}"
+                                 IsEnabled="False" />
+                    </DockPanel>
+                    <DockPanel VerticalAlignment="Center" Grid.Row="1">
+                        <Button Width="100" Margin="50,0,0,0"
+                                Click="Button_Click" Name="BtnScan">
+                            刷新数据
+                        </Button>
+                        <Button IsEnabled="{Binding IsStop}" Width="100" Margin="50,0,0,0"
+                                Click="Button_Click" Name="BtnExport">
+                            导出数据
                         </Button>
                     </DockPanel>
                 </Grid>

@@ -1,10 +1,14 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <OutputType>Exe</OutputType>
+        <AssemblyName>比心房间采集协议</AssemblyName>
+        <StartupObject></StartupObject>
         <TargetFramework>net472</TargetFramework>
-        <AssemblyName>比心</AssemblyName>
-        <StartupObject>bixin.Program</StartupObject>
+        <Nullable>disable</Nullable>
+        <OutputType>Exe</OutputType>
+        <AutoGenerateBindingRedirects>false</AutoGenerateBindingRedirects>
+        <ApplicationIcon></ApplicationIcon>
+        <RootNamespace>bixin</RootNamespace>
     </PropertyGroup>
 
     <ItemGroup>
@@ -15,9 +19,43 @@
     <ItemGroup>
         <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
         <PackageReference Include="Microsoft.Extensions.Http" Version="2.2.0" />
+        <PackageReference Include="MongoDB.Driver" Version="2.9.1" />
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Models" />
+        <Folder Include="Models" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_UnmanagedRegistrationCache Remove="obj\bixin.csproj.UnmanagedRegistration.cache" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ResolveComReferenceCache Remove="obj\Release\net472\bixin.csproj.ResolveComReference.cache" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <IntermediateAssembly Remove="obj\Release\net472\比心房间采集协议.exe" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_DebugSymbolsIntermediatePath Remove="obj\Release\net472\比心房间采集协议.pdb" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_DeploymentManifestEntryPoint Remove="obj\Release\net472\比心房间采集协议.exe" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ApplicationManifest Remove="obj\Release\net472\比心房间采集协议.exe.manifest" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <DeployManifest Remove="obj\Release\net472\比心房间采集协议.application" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Clean Remove="obj\Release\net472\\TempCA\比心房间采集协议.pdb" />
+      <Clean Remove="obj\Release\net472\\TempCA\比心房间采集协议.exe" />
     </ItemGroup>
 </Project>

@@ -26,6 +26,11 @@ namespace bx_core
         public static readonly string PasswordLoginUrl = "https://api.hibixin.com/passport/login/v1/mobile";
         public static readonly string BxCardUrl = "https://api.hibixin.com/bxuser/v1/query/chatroom/card";
         public static readonly string BxYuerSearch = "https://api.hibixin.com/search/v2/yuerSearch";
+
+        public static readonly string BxChatRooms =
+            "https://api.bxyuer.com/chatroom/v1/chatroom/home/tab/content/chatroom";
+
+        public static readonly string BxChatRoomOnlineList = "https://api.bxyuer.com/chatroom/v1/chatroom/online/list";
     }
 
     /// <summary>
@@ -38,7 +43,14 @@ namespace bx_core
         private string _password = "";
         private string _account = "";
         private string _deviceId;
-        private string _udid = "c64a11a9c335422790085bf5b3efba0f";
+        private string _udid = ""; //
+
+        public string Udid
+        {
+            get => _udid;
+            set => _udid = value;
+        }
+
         private string _accessToken = "";
 
         public string Password
@@ -142,6 +154,61 @@ namespace bx_core
             return res;
         }
 
+        //获取房间
+        /// <summary>
+        /// 比心用户信息
+        /// https://api.bxyuer.com/chatroom/v1/chatroom/online/list?anchor=20&limit=20&roomId=135cf465203929dbd8bd73f94d8129e5
+        /// </summary>
+        /// <returns></returns>
+        public async Task<HttpRes> ChatRoomOnlineUsers(string roomId, int anchor = 0, int limit = 0)
+        {
+            var jsonStr = "";
+            var signStr = Sign(jsonStr);
+            var headers = GetHeaders(signStr);
+            var req = new HttpRequestMessage
+            {
+                RequestUri = new Uri(BxUrls.BxChatRoomOnlineList + $"?roomId={roomId}&anchor={anchor}&limit={limit}"),
+                Method = HttpMethod.Get
+            };
+            foreach (var keyValuePair in headers)
+            {
+                req.Headers.Add(keyValuePair.Key, keyValuePair.Value.ToObject<string>());
+            }
+
+            var client = _factory.CreateClient("api.hibixin.com");
+            var res = await Request(client, req);
+            return res;
+        }
+
+        //获取房间
+        /// <summary>
+        /// 比心用户信息
+        /// </summary>
+        /// <returns></returns>
+        public async Task<HttpRes> ChatRooms(int pageNo = 0, int pageSize = 100, int tabId = 0)
+        {
+            var jsonStr = "";
+            var signStr = Sign(jsonStr);
+            var headers = GetHeaders(signStr);
+            var req = new HttpRequestMessage
+            {
+                RequestUri = new Uri(BxUrls.BxChatRooms + $"?pageNo={pageNo}&pageSize={pageSize}&tabId={tabId}"),
+                Method = HttpMethod.Get
+            };
+            foreach (var keyValuePair in headers)
+            {
+                req.Headers.Add(keyValuePair.Key, keyValuePair.Value.ToObject<string>());
+            }
+
+            var client = _factory.CreateClient("api.hibixin.com");
+            var res = await Request(client, req);
+            return res;
+        }
+
+
+        //获取房间的在线用户
+
+
         /// <summary>
         /// 比心用户信息
         /// </summary>
@@ -175,7 +242,6 @@ namespace bx_core
         private JObject GetHeaders(string signStr)
         {
             var p2 = Logger.GetTimeStampMic() + "";
-            p2 = "1566901637841";
             var p5 = "wifi";
             var job = new JObject
             {
@@ -208,11 +274,11 @@ namespace bx_core
         public async Task<HttpRes> Request(HttpClient client, HttpRequestMessage req)
         {
             var httpRes = new HttpRes {Data = null, Ok = false, Message = "REQUEST FAIL", Status = 200};
-            httpRes.Url = req.RequestUri.ToString();
-            httpRes.Method = req.Method.ToString();
             try
             {
-                var res = await HttpHelper.RequestGetRes(client, req, 10);
+                httpRes.Url = req.RequestUri.ToString();
+                httpRes.Method = req.Method.ToString();
+                var res = await HttpHelper.RequestGetRes(client, req);
                 httpRes.Status = (int) res.StatusCode;
                 if (res.IsSuccessStatusCode)
                 {
@@ -254,7 +320,7 @@ namespace bx_core
             }
             finally
             {
-                Console.WriteLine("\nRequest:" + httpRes);
+                Console.WriteLine("\nRequest:" + httpRes.Message);
             }
 
             return httpRes;

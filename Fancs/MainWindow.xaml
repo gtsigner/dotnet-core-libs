@@ -29,20 +29,19 @@
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Height" Value="30" />
+            <Setter Property="Margin" Value="10"></Setter>
         </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
         </Grid.RowDefinitions>
-        <Button Content="比心用户采集" Click="ButtonBase_OnClick" Name="BtnBx" />
-        <Button Content="比心发送消息" Click="ButtonBase_OnClick" Name="BtnSend" Grid.Row="1" />
-        <Button Content="网易云" Click="ButtonBase_OnClick" Grid.Row="2" />
-        <Button Content="爱奇艺" Click="ButtonBase_OnClick" Grid.Row="3" />
-        <Button Content="一弹" Click="ButtonBase_OnClick" Grid.Row="4" />
+        <StackPanel>
+            <Button Content="比心用户采集" Click="ButtonBase_OnClick" Name="BtnBx" />
+            <Button Content="比心发送消息" Click="ButtonBase_OnClick" Name="BtnSend" Grid.Row="1" />
+            <Button Content="网易云" Click="ButtonBase_OnClick" Grid.Row="2" />
+            <Button Content="爱奇艺" Click="ButtonBase_OnClick" Grid.Row="3" />
+            <Button Content="一弹" Click="ButtonBase_OnClick" Grid.Row="4" />
+        </StackPanel>
     </Grid>
 </Window>

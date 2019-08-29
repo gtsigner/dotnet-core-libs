@@ -46,7 +46,7 @@ namespace rvcore.Model
         }
 
 
-        private int _status = 200;
+        private int _status = 500;
 
         public int Status
         {

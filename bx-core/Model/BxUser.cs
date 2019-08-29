@@ -1,9 +1,14 @@
-﻿using Newtonsoft.Json;
+﻿using MongoDB.Bson;
+using Newtonsoft.Json;
 
 namespace bx_core.Model
 {
     public class BxUser
     {
+        public ObjectId _id { get; set; }
+
+        public string accId { get; set; }
+
         // <summary>
         /// 
         /// </summary>
@@ -24,10 +29,16 @@ namespace bx_core.Model
         /// </summary>
         public string avatar { get; set; }
 
+        private string _nickname = "";
+
         /// <summary>
         /// yj哥哥哥哥哥哥哥哥
         /// </summary>
-        public string nickname { get; set; }
+        public string nickname
+        {
+            get => _nickname;
+            set => _nickname = value.Replace("_", "");
+        }
 
         /// <summary>
         /// 
@@ -88,6 +99,11 @@ namespace bx_core.Model
         /// 
         /// </summary>
         public string timeHint { get; set; }
+
+        public long fansCount { get; set; }
+        public string showNo { get; set; }
+        public bool isAuth { get; set; }
+        public bool isGod { get; set; }
 
         public override string ToString()
         {
